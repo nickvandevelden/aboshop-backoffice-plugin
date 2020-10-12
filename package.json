@@ -1,0 +1,11 @@
+{
+  "name": "aboshop-backoffice-plugin",
+  "version": "1.0.0",
+  "description": "Chrome Extension for the Mediahuis Aboshop Backoffice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Van de Velden",
+  "license": "ISC"
+}

@@ -1,0 +1,23 @@
+html,
+body {
+  min-width: 250px;
+  min-height: 100px;
+  user-select: none;
+}
+
+img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  display: block;
+  width: 90%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
