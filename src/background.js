@@ -14,8 +14,4 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   offerFormulaId = message.currentOfferFomulaId;
   orderId = message.currentOrderId;
   environment = message.currentEnvironment;
-
-  console.log(url);
-  console.log(offerFormulaId);
-  console.log(orderId);
 });
