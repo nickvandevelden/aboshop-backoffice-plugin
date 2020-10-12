@@ -14,7 +14,20 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "*://testaboshop.hbvl.be/*",
+        "*://previewaboshop.hbvl.be/*",
+        "*://aboshop.hbvl.be/*",
+        "*://testaboshop.gva.be/*",
+        "*://previewaboshop.gva.be/*",
+        "*://aboshop.gva.be/*",
+        "*://testaboshop.nieuwsblad.be/*",
+        "*://previewaboshop.nieuwsblad.be/*",
+        "*://aboshop.nieuwsblad.be/*",
+        "*://testaboshop.standaard.be/*",
+        "*://previewaboshop.standaard.be/*",
+        "*://aboshop.standaard.be/*"
+      ],
       "js": ["src/content.js"],
       "run_at": "document_end"
     }
