@@ -3,13 +3,10 @@ chrome.extension.onMessage.addListener(function (request) {
     let url = window.location.href;
 
     if (url.includes('://testaboshop')) {
-      environment = 'test';
       drawRectangle('green');
     } else if (url.includes('://previewaboshop')) {
-      environment = 'preview';
       drawRectangle('orange');
     } else if (url.includes('://aboshop')) {
-      environment = '';
       drawRectangle('red');
     }
   }
