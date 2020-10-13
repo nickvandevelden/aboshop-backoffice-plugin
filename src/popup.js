@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   orderButton.onclick = function () {
     var win = window.open(
-      `https://${currentEnvironment}aboshopadmin.mediahuis.be/order/edit/${currentOrderId}`,
+      `https://${currentEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentOrderId}`,
       '_blank'
     );
     win.focus();
