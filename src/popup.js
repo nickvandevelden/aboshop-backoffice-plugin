@@ -13,21 +13,21 @@ function disableOrderButton() {
 
 document.addEventListener('DOMContentLoaded', function () {
   var background = chrome.extension.getBackgroundPage();
-  var currentOfferFormulaId = background.offerFormulaId;
-  var currentOrderId = background.orderId;
-  var currentEnvironment = background.environment;
+  var currentShopOfferFormulaId = background.shopOfferFormulaId;
+  var currentShopOrderId = background.shopOrderId;
+  var currentShopEnvironment = background.shopEnvironment;
 
-  if (currentOfferFormulaId === null || typeof currentOfferFormulaId === 'undefined') {
+  if (currentShopOfferFormulaId === null || typeof currentShopOfferFormulaId === 'undefined') {
     disableProductButton();
   }
 
-  if (currentOrderId === null || typeof currentOrderId === 'undefined') {
+  if (currentShopOrderId === null || typeof currentShopOrderId === 'undefined') {
     disableOrderButton();
   }
 
   productButtonShop.onclick = function () {
     var win = window.open(
-      `https://${currentEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentOfferFormulaId}`,
+      `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentShopOfferFormulaId}`,
       '_blank'
     );
     win.focus();
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   orderButtonShop.onclick = function () {
     var win = window.open(
-      `https://${currentEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentOrderId}`,
+      `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`,
       '_blank'
     );
     win.focus();

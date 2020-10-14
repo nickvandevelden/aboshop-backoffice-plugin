@@ -28,7 +28,7 @@
         "*://previewaboshop.standaard.be/*",
         "*://aboshop.standaard.be/*"
       ],
-      "js": ["src/content.js"],
+      "js": ["src/shop.js"],
       "run_at": "document_end"
     },
     {

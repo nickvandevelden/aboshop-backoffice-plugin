@@ -4,14 +4,14 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   }
 });
 
-var url;
-var offerFormulaId;
-var orderId;
-var environment;
+var shopUrl;
+var shopOfferFormulaId;
+var shopOrderId;
+var shopEnvironment;
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  url = message.currentUrl;
-  offerFormulaId = message.currentOfferFomulaId;
-  orderId = message.currentOrderId;
-  environment = message.currentEnvironment;
+  shopUrl = message.currentShopUrl;
+  shopOfferFormulaId = message.currentShopOfferFomulaId;
+  shopOrderId = message.currentShopOrderId;
+  shopEnvironment = message.currentShopEnvironment;
 });
