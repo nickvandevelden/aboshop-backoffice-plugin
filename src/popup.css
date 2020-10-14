@@ -5,6 +5,10 @@ body {
   user-select: none;
 }
 
+h2 {
+  text-align: center;
+}
+
 img {
   width: 200px;
   height: auto;
