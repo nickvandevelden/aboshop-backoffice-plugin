@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentOrderId = background.orderId;
   var currentEnvironment = background.environment;
 
-  if (currentOfferFormulaId === null) {
+  if (currentOfferFormulaId === null || typeof currentOfferFormulaId === 'undefined') {
     disableProductButton();
   }
 
-  if (currentOrderId === null) {
+  if (currentOrderId === null || typeof currentOrderId === 'undefined') {
     disableOrderButton();
   }
 
