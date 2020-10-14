@@ -1,12 +1,14 @@
-const productButton = document.getElementById('productButton');
-const orderButton = document.getElementById('orderButton');
+const productButtonShop = document.getElementById('productButtonShop');
+const orderButtonShop = document.getElementById('orderButtonShop');
+const productButtonBackoffice = document.getElementById('productButtonBackoffice');
+const offerButtonBackoffice = document.getElementById('offerButtonBackoffice');
 
 function disableProductButton() {
-  productButton.disabled = true;
+  productButtonShop.disabled = true;
 }
 
 function disableOrderButton() {
-  orderButton.disabled = true;
+  orderButtonShop.disabled = true;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     disableOrderButton();
   }
 
-  productButton.onclick = function () {
+  productButtonShop.onclick = function () {
     var win = window.open(
       `https://${currentEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentOfferFormulaId}`,
       '_blank'
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     win.focus();
   };
 
-  orderButton.onclick = function () {
+  orderButtonShop.onclick = function () {
     var win = window.open(
       `https://${currentEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentOrderId}`,
       '_blank'

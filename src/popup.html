@@ -6,12 +6,28 @@
     <link href="popup.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="header">
-      <img src="./images/aboshopadmin.png" alt="aboshopadmin" />
-    </div>
-    <div class="buttons">
-      <button id="productButton">Product</button>
-      <button id="orderButton">Order</button>
+    <div class="container">
+      <div class="content">
+        <div class="header">
+          <img src="./images/aboshopadmin.png" alt="aboshopadmin" />
+        </div>
+        <div class="shop">
+          <h2>SHOP</h2>
+          <label for="shop">Buttons will link through to the backoffice</label>
+          <div class="buttons">
+            <button id="productButtonShop">Product</button>
+            <button id="orderButtonShop">Order</button>
+          </div>
+        </div>
+        <div class="backoffice">
+          <h2>BACKOFFICE</h2>
+          <label for="shop">Buttons will link through to the shop</label>
+          <div class="buttons">
+            <button id="productButtonBackoffice">Product</button>
+            <button id="offerButtonBackoffice">Offer</button>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="popup.js"></script>
   </body>
