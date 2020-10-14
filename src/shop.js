@@ -2,11 +2,11 @@ chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange') {
     let shopUrl = window.location.href;
 
-    function getOfferFormulaId() {
+    function getShopOfferFormulaId() {
       return sessionStorage.getItem('offerFormulaId');
     }
 
-    function getOrderId() {
+    function getShopOrderId() {
       return sessionStorage.getItem('orderId');
     }
 
@@ -22,8 +22,8 @@ chrome.extension.onMessage.addListener(function (request) {
 
     let msg = {
       currentShopUrl: shopUrl,
-      currentShopOfferFomulaId: getOfferFormulaId(),
-      currentShopOrderId: getOrderId(),
+      currentShopOfferFomulaId: getShopOfferFormulaId(),
+      currentShopOrderId: getShopOrderId(),
       currentShopEnvironment: shopEnvironment,
     };
     chrome.runtime.sendMessage(msg);

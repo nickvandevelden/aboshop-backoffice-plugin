@@ -8,10 +8,18 @@ var shopUrl;
 var shopOfferFormulaId;
 var shopOrderId;
 var shopEnvironment;
+var backofficeUrl;
+var backofficeOfferFormulaId;
+var backofficeOfferId;
+var backofficeEnvironment;
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   shopUrl = message.currentShopUrl;
   shopOfferFormulaId = message.currentShopOfferFomulaId;
   shopOrderId = message.currentShopOrderId;
   shopEnvironment = message.currentShopEnvironment;
+  backofficeUrl = message.currentBackofficeUrl;
+  backofficeOfferFormulaId = message.currentBackofficeOfferFomulaId;
+  backofficeOfferId = message.currentBackofficeOfferId;
+  backofficeEnvironment = message.currentBackofficeEnvironment;
 });

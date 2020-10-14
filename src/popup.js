@@ -3,12 +3,20 @@ const orderButtonShop = document.getElementById('orderButtonShop');
 const productButtonBackoffice = document.getElementById('productButtonBackoffice');
 const offerButtonBackoffice = document.getElementById('offerButtonBackoffice');
 
-function disableProductButton() {
+function disableShopProductButton() {
   productButtonShop.disabled = true;
 }
 
-function disableOrderButton() {
+function disableShopOrderButton() {
   orderButtonShop.disabled = true;
+}
+
+function disableBackofficeProductButton() {
+  productButtonBackoffice.disabled = true;
+}
+
+function disableBackofficeOfferButton() {
+  offerButtonBackoffice.disabled = true;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,13 +24,24 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentShopOfferFormulaId = background.shopOfferFormulaId;
   var currentShopOrderId = background.shopOrderId;
   var currentShopEnvironment = background.shopEnvironment;
+  var currentBackofficeOfferFormulaId = background.backofficeOfferFormulaId;
+  var currentBackofficeOfferId = background.backofficeOfferId;
+  var currentBackofficeEnvironment = background.backofficeEnvironment;
 
   if (currentShopOfferFormulaId === null || typeof currentShopOfferFormulaId === 'undefined') {
-    disableProductButton();
+    disableShopProductButton();
   }
 
   if (currentShopOrderId === null || typeof currentShopOrderId === 'undefined') {
-    disableOrderButton();
+    disableShopOrderButton();
+  }
+
+  if (currentBackofficeOfferFormulaId === null || typeof currentBackofficeOfferFormulaId === 'undefined') {
+    disableBackofficeProductButton();
+  }
+
+  if (currentBackofficeOfferId === null || typeof currentBackofficeOfferId === 'undefined') {
+    disableBackofficeOfferButton();
   }
 
   productButtonShop.onclick = function () {
@@ -34,10 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   orderButtonShop.onclick = function () {
-    var win = window.open(
-      `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`,
-      '_blank'
-    );
+    var win = window.open(`https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`, '_blank');
     win.focus();
   };
 });
