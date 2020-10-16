@@ -19,7 +19,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   shopOrderId = message.currentShopOrderId;
   shopEnvironment = message.currentShopEnvironment;
   backofficeUrl = message.currentBackofficeUrl;
-  backofficeOfferFormulaId = message.currentBackofficeOfferFomulaId;
+  backofficeOfferFormulaId = message.currentBackofficeOfferFormulaId;
+  backofficeOfferFormulaBrand = message.currentBackofficeOfferFormulaBrand;
   backofficeOfferId = message.currentBackofficeOfferId;
+  backofficeOfferBrand = message.currentBackofficeOfferBrand;
   backofficeEnvironment = message.currentBackofficeEnvironment;
 });

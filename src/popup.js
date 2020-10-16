@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentShopEnvironment = background.shopEnvironment;
   var currentBackofficeOfferFormulaId = background.backofficeOfferFormulaId;
   var currentBackofficeOfferId = background.backofficeOfferId;
+  var currentBackofficeOfferBrand = background.backofficeOfferBrand;
   var currentBackofficeEnvironment = background.backofficeEnvironment;
 
   if (currentShopOfferFormulaId === null || typeof currentShopOfferFormulaId === 'undefined') {
