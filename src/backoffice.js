@@ -2,6 +2,10 @@ chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange') {
     let backofficeUrl = window.location.href;
 
+    function getAccessToken() {
+      return localStorage.getItem('access_token');
+    }
+
     function getBackofficeOfferFormulaId() {
       if (backofficeUrl.includes('subscriptionformula/edit/')) {
         backofficeUrl = backofficeUrl.split('/');
@@ -30,10 +34,16 @@ chrome.extension.onMessage.addListener(function (request) {
       backofficeEnvironment = '';
     }
 
-    function getBackofficeOfferFormulaBrand() {
-      fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`)
+    async function getBackofficeOfferFormulaBrand() {
+      await fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+        },
+      })
         .then((response) => response.json())
-        .then((data) => console.log(data.brand));
+        .then((data) => {
+          console.log(data.brand);
+        });
     }
 
     function getBackofficeOfferBrand() {
