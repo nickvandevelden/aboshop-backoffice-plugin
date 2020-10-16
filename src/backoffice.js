@@ -59,6 +59,7 @@ chrome.extension.onMessage.addListener(function (request) {
           let msg = {
             currentBackofficeUrl: backofficeUrl,
             currentBackofficeOfferId: getBackofficeOfferId(),
+            currentBackofficeOfferSlug: data.slug,
             currentBackofficeOfferBrand: data.brand,
             currentBackofficeEnvironment: backofficeEnvironment,
           };

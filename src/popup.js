@@ -19,13 +19,23 @@ function disableBackofficeOfferButton() {
   offerButtonBackoffice.disabled = true;
 }
 
+function disableAllButtons() {
+  disableShopProductButton();
+  disableShopOrderButton();
+  disableBackofficeProductButton();
+  disableBackofficeOfferButton();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   var background = chrome.extension.getBackgroundPage();
   var currentShopOfferFormulaId = background.shopOfferFormulaId;
   var currentShopOrderId = background.shopOrderId;
   var currentShopEnvironment = background.shopEnvironment;
   var currentBackofficeOfferFormulaId = background.backofficeOfferFormulaId;
+  var currentBackofficeOfferFormulaBrand = background.backofficeOfferFormulaBrand;
+  console.log(currentBackofficeOfferFormulaBrand);
   var currentBackofficeOfferId = background.backofficeOfferId;
+  var currentBackofficeOfferSlug = background.backofficeOfferSlug;
   var currentBackofficeOfferBrand = background.backofficeOfferBrand;
   var currentBackofficeEnvironment = background.backofficeEnvironment;
 
@@ -51,10 +61,48 @@ document.addEventListener('DOMContentLoaded', function () {
       '_blank'
     );
     win.focus();
+    disableAllButtons();
   };
 
   orderButtonShop.onclick = function () {
     var win = window.open(`https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`, '_blank');
     win.focus();
+    disableAllButtons();
+  };
+
+  function paperMapper(brand) {
+    switch (brand) {
+      case 'nb':
+        return 'nieuwsblad';
+      case 'ds':
+        return 'standaard';
+      case 'hbvl':
+        return 'hbvl';
+      case 'gva':
+        return 'gva';
+      case 'dl':
+        return 'limburger';
+      default:
+        return null;
+    }
+  }
+
+  let offerFormulaPaper = paperMapper(currentBackofficeOfferFormulaBrand);
+
+  productButtonBackoffice.onclick = function () {
+    var win = window.open(
+      `https://${currentBackofficeEnvironment}aboshop.${offerFormulaPaper}.be/checkout?formula_id=${currentBackofficeOfferFormulaId}`,
+      '_blank'
+    );
+    win.focus();
+    disableAllButtons();
+  };
+
+  let offerPaper = paperMapper(currentBackofficeOfferBrand);
+
+  offerButtonBackoffice.onclick = function () {
+    var win = window.open(`https://${currentBackofficeEnvironment}aboshop.${offerPaper}.be/${currentBackofficeOfferSlug}`, '_blank');
+    win.focus();
+    disableAllButtons();
   };
 });
