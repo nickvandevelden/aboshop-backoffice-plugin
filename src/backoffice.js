@@ -35,21 +35,38 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     async function getBackofficeOfferFormulaBrand() {
-      await fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.brand);
-        });
+      if (
+        backofficeUrl.includes(
+          'aboshopadmin.mediahuis.be/subscriptionformula/edit'
+        )
+      ) {
+        await fetch(
+          `https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getAccessToken()}`,
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.brand);
+          });
+      } else {
+        return;
+      }
     }
 
-    function getBackofficeOfferBrand() {
-      fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`)
-        .then((response) => response.json())
-        .then((data) => console.log(data.brand));
+    async function getBackofficeOfferBrand() {
+      if (backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit/')) {
+        await fetch(
+          `https://${backofficeEnvironment}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`
+        )
+          .then((response) => response.json())
+          .then((data) => console.log(data.brand));
+      } else {
+        return;
+      }
     }
 
     let msg = {
