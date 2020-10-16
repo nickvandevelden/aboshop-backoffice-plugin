@@ -7,7 +7,7 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     function getBackofficeOfferFormulaId() {
-      if (backofficeUrl.includes('subscriptionformula/edit/')) {
+      if (backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
@@ -16,7 +16,7 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     function getBackofficeOfferId() {
-      if (backofficeUrl.includes('offers/edit/')) {
+      if (backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
@@ -49,6 +49,9 @@ chrome.extension.onMessage.addListener(function (request) {
             currentBackofficeEnvironment: backofficeEnvironment,
           };
           chrome.runtime.sendMessage(msg);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
         });
     }
 
@@ -64,6 +67,9 @@ chrome.extension.onMessage.addListener(function (request) {
             currentBackofficeEnvironment: backofficeEnvironment,
           };
           chrome.runtime.sendMessage(msg);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
         });
     }
 
