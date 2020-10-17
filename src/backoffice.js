@@ -11,7 +11,7 @@ chrome.extension.onMessage.addListener(function (request) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
-        return null;
+        return;
       }
     }
 
@@ -20,7 +20,7 @@ chrome.extension.onMessage.addListener(function (request) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
-        return null;
+        return;
       }
     }
 
