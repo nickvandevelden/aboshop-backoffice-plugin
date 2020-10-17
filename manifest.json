@@ -28,7 +28,7 @@
         "*://previewaboshop.standaard.be/*",
         "*://aboshop.standaard.be/*"
       ],
-      "js": ["src/content.js"],
+      "js": ["src/shop.js"],
       "run_at": "document_end"
     },
     {
@@ -51,7 +51,12 @@
       ],
       "js": ["src/environment.js"],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["*://testaboshopadmin.mediahuis.be/*", "*://previewaboshopadmin.mediahuis.be/*", "*://aboshopadmin.mediahuis.be/*"],
+      "js": ["src/backoffice.js"],
+      "run_at": "document_end"
     }
   ],
-  "permissions": ["tabs", "background"]
+  "permissions": ["tabs", "background", "cookies"]
 }
