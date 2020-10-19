@@ -1,7 +1,7 @@
-console.log('executing shop script...');
-
 chrome.extension.onMessage.addListener(function (request) {
-  if (request.type === 'getUrlChange') {
+  if (request.type === 'getUrlChange' || request.type === 'getTabChange') {
+    console.log('executing shop script...');
+
     let shopUrl = window.location.href;
 
     function getShopOfferFormulaId() {
