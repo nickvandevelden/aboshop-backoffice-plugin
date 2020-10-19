@@ -10,15 +10,6 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
   });
 });
 
-var shopUrl;
-var shopOfferFormulaId;
-var shopOrderId;
-var shopEnvironment;
-var backofficeUrl;
-var backofficeOfferFormulaId;
-var backofficeOfferId;
-var backofficeEnvironment;
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   shopUrl = message.currentShopUrl;
   shopOfferFormulaId = message.currentShopOfferFomulaId;
