@@ -2,7 +2,7 @@
 
 ### Description
 
-This is extension is written for the Mediahuis Aboshop and it's Backoffice.
+This extension is written for the Mediahuis Aboshop and it's Backoffice.
 
 Three core functionalities are currently implemented:
 
