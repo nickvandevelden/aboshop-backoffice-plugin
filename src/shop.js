@@ -1,3 +1,5 @@
+console.log('executing shop script...');
+
 chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange') {
     let shopUrl = window.location.href;

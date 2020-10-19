@@ -1,3 +1,5 @@
+console.log('executing backoffice script...');
+
 chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange') {
     let backofficeUrl = window.location.href;

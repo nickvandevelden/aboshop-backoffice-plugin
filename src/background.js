@@ -4,6 +4,24 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   }
 });
 
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    let url = tabs[0].url;
+    console.log(url);
+    if (url.includes('aboshop.')) {
+      chrome.tabs.executeScript(null, {
+        file: 'src/shop.js',
+      });
+    } else if (url.includes('aboshopadmin.')) {
+      chrome.tabs.executeScript(null, {
+        file: 'src/backoffice.js',
+      });
+    } else {
+      return;
+    }
+  });
+});
+
 var shopUrl;
 var shopOfferFormulaId;
 var shopOrderId;
