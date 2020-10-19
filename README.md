@@ -18,4 +18,7 @@ Three core functionalities are currently implemented:
 4. Toggle in this screen the "Developer mode" option
 5. Next click on the "Load unpacked" button
 6. In the pop-up navigate to the location where you unzipped your ZIP-file and click on select (make sure you see a 'src' folder in the pop-up)
-7. The extension is now added to your Chrome browser (tip: pin your extension and enable it in incognito mode for better access)
+7. The extension is now added to your Chrome browser 
+8. Restart your browser
+
+(tip: pin your extension and enable it in incognito mode for better access)
