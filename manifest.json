@@ -58,5 +58,24 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["tabs", "background", "cookies"]
+  "permissions": [
+    "tabs",
+    "background",
+    "cookies",
+    "*://testaboshop.hbvl.be/*",
+    "*://previewaboshop.hbvl.be/*",
+    "*://aboshop.hbvl.be/*",
+    "*://testaboshop.gva.be/*",
+    "*://previewaboshop.gva.be/*",
+    "*://aboshop.gva.be/*",
+    "*://testaboshop.nieuwsblad.be/*",
+    "*://previewaboshop.nieuwsblad.be/*",
+    "*://aboshop.nieuwsblad.be/*",
+    "*://testaboshop.standaard.be/*",
+    "*://previewaboshop.standaard.be/*",
+    "*://aboshop.standaard.be/*",
+    "*://testaboshopadmin.mediahuis.be/*",
+    "*://previewaboshopadmin.mediahuis.be/*",
+    "*://aboshopadmin.mediahuis.be/*"
+  ]
 }

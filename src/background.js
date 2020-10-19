@@ -4,6 +4,12 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo) {
   }
 });
 
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(activeInfo.tabId, { type: 'getTabChange' });
+  });
+});
+
 var shopUrl;
 var shopOfferFormulaId;
 var shopOrderId;
