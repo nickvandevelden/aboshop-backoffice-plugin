@@ -1,5 +1,5 @@
 chrome.extension.onMessage.addListener(function (request) {
-  if (request.type === 'getUrlChange') {
+  if (request.type === 'getUrlChange' || request.type === 'getTabChange') {
     let url = window.location.href;
 
     if (url.includes('://testaboshop')) {
