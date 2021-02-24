@@ -5,7 +5,9 @@ chrome.extension.onMessage.addListener(function (request) {
     let backofficeUrl = window.location.href;
 
     function getAccessToken() {
-      return localStorage.getItem('access_token');
+      return localStorage.getItem(
+        Object.keys(localStorage).filter((s) => s.includes('.accessToken'))
+      );
     }
 
     function getBackofficeOfferFormulaId() {
