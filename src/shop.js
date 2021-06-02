@@ -2,7 +2,7 @@ chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange' || request.type === 'getTabChange') {
     console.log('executing shop script...');
 
-    let shopUrl = window.location.href;
+    let shopUrl = window.location.href.toLowerCase();
 
     function getShopOfferFormulaId() {
       return sessionStorage.getItem('offerFormulaId');
