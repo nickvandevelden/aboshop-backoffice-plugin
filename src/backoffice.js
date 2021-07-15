@@ -5,11 +5,16 @@ chrome.extension.onMessage.addListener(function (request) {
     let backofficeUrl = window.location.href.toLowerCase();
 
     function getAccessToken() {
-      return localStorage.getItem(Object.keys(localStorage).filter((s) => s.includes('.accessToken')));
+      return localStorage.getItem(
+        Object.keys(localStorage).filter((s) => s.includes('.accessToken'))
+      );
     }
 
     function getBackofficeOfferFormulaId() {
-      if (backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')) {
+      if (
+        backofficeUrl.includes('aboshopadmin.limburger.nl/subscriptionformula/edit') ||
+        backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')
+      ) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
@@ -18,7 +23,10 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     function getBackofficeOfferId() {
-      if (backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')) {
+      if (
+        backofficeUrl.includes('aboshopadmin.limburger.nl/offers/edit') ||
+        backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')
+      ) {
         splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
@@ -37,11 +45,16 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     async function getBackofficeOfferFormulaData() {
-      await fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-        },
-      })
+      await fetch(
+        backofficeUrl.includes('limburger')
+          ? `https://${backofficeEnvironment}offerservice.limburger.nl/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`
+          : `https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           let msg = {
@@ -58,7 +71,11 @@ chrome.extension.onMessage.addListener(function (request) {
     }
 
     async function getBackofficeOfferData() {
-      await fetch(`https://${backofficeEnvironment}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`)
+      await fetch(
+        backofficeUrl.includes('limburger')
+          ? `https://${backofficeEnvironment}offerservice.limburger.nl/api/offers/${getBackofficeOfferId()}`
+          : `https://${backofficeEnvironment}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`
+      )
         .then((response) => response.json())
         .then((data) => {
           let msg = {
@@ -75,9 +92,15 @@ chrome.extension.onMessage.addListener(function (request) {
         });
     }
 
-    if (backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')) {
+    if (
+      backofficeUrl.includes('aboshopadmin.limburger.nl/subscriptionformula/edit') ||
+      backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')
+    ) {
       getBackofficeOfferFormulaData();
-    } else if (backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')) {
+    } else if (
+      backofficeUrl.includes('aboshopadmin.limburger.nl/offers/edit') ||
+      backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')
+    ) {
       getBackofficeOfferData();
     } else {
       let msg = {};
