@@ -21,6 +21,7 @@ function disableBackofficeOfferButton() {
 
 document.addEventListener('DOMContentLoaded', function () {
   var background = chrome.extension.getBackgroundPage();
+  var currentShopUrl = background.shopUrl;
   var currentShopOfferFormulaId = background.shopOfferFormulaId;
   var currentShopOrderId = background.shopOrderId;
   var currentShopEnvironment = background.shopEnvironment;
@@ -39,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
     disableShopOrderButton();
   }
 
-  if (currentBackofficeOfferFormulaId === null || typeof currentBackofficeOfferFormulaId === 'undefined') {
+  if (
+    currentBackofficeOfferFormulaId === null ||
+    typeof currentBackofficeOfferFormulaId === 'undefined'
+  ) {
     disableBackofficeProductButton();
   }
 
@@ -49,14 +53,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   productButtonShop.onclick = function () {
     var win = window.open(
-      `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentShopOfferFormulaId}`,
+      currentShopUrl.includes('limburger')
+        ? `https://${currentShopEnvironment}aboshopadmin.limburger.nl/subscriptionformula/edit/${currentShopOfferFormulaId}`
+        : `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentShopOfferFormulaId}`,
       '_blank'
     );
     win.focus();
   };
 
   orderButtonShop.onclick = function () {
-    var win = window.open(`https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`, '_blank');
+    var win = window.open(
+      currentShopUrl.includes('limburger')
+        ? `https://${currentShopEnvironment}aboshopadmin.limburger.nl/orders/edit/${currentShopOrderId}`
+        : `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`,
+      '_blank'
+    );
     win.focus();
   };
 
@@ -100,7 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
   let offerPaper = paperMapper(currentBackofficeOfferBrand);
 
   offerButtonBackoffice.onclick = function () {
-    var win = window.open(`https://${currentBackofficeEnvironment}aboshop.${offerPaper}.${countryCode}/${currentBackofficeOfferSlug}`, '_blank');
+    var win = window.open(
+      `https://${currentBackofficeEnvironment}aboshop.${offerPaper}.${countryCode}/${currentBackofficeOfferSlug}`,
+      '_blank'
+    );
     win.focus();
   };
 });

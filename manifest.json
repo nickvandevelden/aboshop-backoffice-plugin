@@ -53,13 +53,21 @@
         "*://aboshop.limburger.nl/*",
         "*://testaboshopadmin.mediahuis.be/*",
         "*://previewaboshopadmin.mediahuis.be/*",
-        "*://aboshopadmin.mediahuis.be/*"
+        "*://aboshopadmin.mediahuis.be/*",
+        "*://testaboshopadmin.limburger.nl/*",
+        "*://previewaboshopadmin.limburger.nl/*",
+        "*://aboshopadmin.limburger.nl/*"
       ],
       "js": ["src/environment.js"],
       "run_at": "document_end"
     },
     {
-      "matches": ["*://testaboshopadmin.mediahuis.be/*", "*://previewaboshopadmin.mediahuis.be/*", "*://aboshopadmin.mediahuis.be/*"],
+      "matches": ["*://testaboshopadmin.mediahuis.be/*", 
+        "*://previewaboshopadmin.mediahuis.be/*", 
+        "*://aboshopadmin.mediahuis.be/*", 
+        "*://testaboshopadmin.limburger.nl/*",
+        "*://previewaboshopadmin.limburger.nl/*",
+        "*://aboshopadmin.limburger.nl/*"],
       "js": ["src/backoffice.js"],
       "run_at": "document_end"
     }
@@ -85,6 +93,9 @@
     "*://aboshop.limburger.nl/*",
     "*://testaboshopadmin.mediahuis.be/*",
     "*://previewaboshopadmin.mediahuis.be/*",
-    "*://aboshopadmin.mediahuis.be/*"
+    "*://aboshopadmin.mediahuis.be/*",
+    "*://testaboshopadmin.limburger.nl/*",
+    "*://previewaboshopadmin.limburger.nl/*",
+    "*://aboshopadmin.limburger.nl/*"
   ]
 }
