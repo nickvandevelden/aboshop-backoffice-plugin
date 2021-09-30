@@ -1,6 +1,8 @@
+'use strict';
+
 chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange' || request.type === 'getTabChange') {
-    let url = window.location.href;
+    const url = window.location.href;
 
     if (url.includes('://testaboshop')) {
       drawRectangle('green');

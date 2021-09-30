@@ -1,120 +1,140 @@
+'use strict';
+
+const offerButtonShop = document.getElementById('offerButtonShop');
 const productButtonShop = document.getElementById('productButtonShop');
 const orderButtonShop = document.getElementById('orderButtonShop');
 const productButtonBackoffice = document.getElementById('productButtonBackoffice');
 const offerButtonBackoffice = document.getElementById('offerButtonBackoffice');
 
-function disableShopProductButton() {
+const disableShopOfferButton = () => {
+  offerButtonShop.disabled = true;
+};
+
+const disableShopProductButton = () => {
   productButtonShop.disabled = true;
-}
+};
 
-function disableShopOrderButton() {
+const disableShopOrderButton = () => {
   orderButtonShop.disabled = true;
-}
+};
 
-function disableBackofficeProductButton() {
+const disableBackofficeProductButton = () => {
   productButtonBackoffice.disabled = true;
-}
+};
 
-function disableBackofficeOfferButton() {
+const disableBackofficeOfferButton = () => {
   offerButtonBackoffice.disabled = true;
-}
+};
 
 document.addEventListener('DOMContentLoaded', function () {
-  var background = chrome.extension.getBackgroundPage();
-  var currentShopUrl = background.shopUrl;
-  var currentShopOfferFormulaId = background.shopOfferFormulaId;
-  var currentShopOrderId = background.shopOrderId;
-  var currentShopEnvironment = background.shopEnvironment;
-  var currentBackofficeOfferFormulaId = background.backofficeOfferFormulaId;
-  var currentBackofficeOfferFormulaBrand = background.backofficeOfferFormulaBrand;
-  var currentBackofficeOfferId = background.backofficeOfferId;
-  var currentBackofficeOfferSlug = background.backofficeOfferSlug;
-  var currentBackofficeOfferBrand = background.backofficeOfferBrand;
-  var currentBackofficeEnvironment = background.backofficeEnvironment;
+  const background = chrome.extension.getBackgroundPage();
+  const currentShopUrl = background.shopUrl;
+  const currentShopOfferId = background.shopOfferId;
+  const currentShopOfferFormulaId = background.shopOfferFormulaId;
+  const currentShopOrderId = background.shopOrderId;
+  const currentShopEnvironment = background.shopEnvironment;
+  const currentBackofficeOfferFormulaId = background.backofficeOfferFormulaId;
+  const currentBackofficeOfferFormulaPaperCode = background.backofficeOfferFormulaPaperCode;
+  const currentBackofficeOfferId = background.backofficeOfferId;
+  const currentBackofficeOfferSlug = background.backofficeOfferSlug;
+  const currentBackofficeOfferPaperCode = background.backofficeOfferPaperCode;
+  const currentBackofficeEnvironment = background.backofficeEnvironment;
 
-  if (currentShopOfferFormulaId === null || typeof currentShopOfferFormulaId === 'undefined') {
+  if (!currentShopOfferId) {
+    disableShopOfferButton();
+  }
+
+  if (!currentShopOfferFormulaId) {
     disableShopProductButton();
   }
 
-  if (currentShopOrderId === null || typeof currentShopOrderId === 'undefined') {
+  if (!currentShopOrderId) {
     disableShopOrderButton();
   }
 
-  if (
-    currentBackofficeOfferFormulaId === null ||
-    typeof currentBackofficeOfferFormulaId === 'undefined'
-  ) {
+  if (!currentBackofficeOfferFormulaId) {
     disableBackofficeProductButton();
   }
 
-  if (currentBackofficeOfferId === null || typeof currentBackofficeOfferId === 'undefined') {
+  if (!currentBackofficeOfferId) {
     disableBackofficeOfferButton();
   }
 
-  productButtonShop.onclick = function () {
-    var win = window.open(
+  offerButtonShop.addEventListener('click', function () {
+    const win = window.open(
+      currentShopUrl.includes('limburger')
+        ? `https://${currentShopEnvironment}aboshopadmin.limburger.nl/offers/edit/${currentShopOfferId}`
+        : `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/offers/edit/${currentShopOfferId}`,
+      '_blank'
+    );
+    win.focus();
+  });
+
+  productButtonShop.addEventListener('click', function () {
+    const win = window.open(
       currentShopUrl.includes('limburger')
         ? `https://${currentShopEnvironment}aboshopadmin.limburger.nl/subscriptionformula/edit/${currentShopOfferFormulaId}`
         : `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/subscriptionformula/edit/${currentShopOfferFormulaId}`,
       '_blank'
     );
     win.focus();
-  };
+  });
 
-  orderButtonShop.onclick = function () {
-    var win = window.open(
+  orderButtonShop.addEventListener('click', function () {
+    const win = window.open(
       currentShopUrl.includes('limburger')
         ? `https://${currentShopEnvironment}aboshopadmin.limburger.nl/orders/edit/${currentShopOrderId}`
         : `https://${currentShopEnvironment}aboshopadmin.mediahuis.be/orders/edit/${currentShopOrderId}`,
       '_blank'
     );
     win.focus();
-  };
+  });
 
-  function paperMapper(brand) {
-    switch (brand) {
-      case 'nb':
-        return 'nieuwsblad';
-      case 'ds':
-        return 'standaard';
-      case 'hbvl':
-        return 'hbvl';
-      case 'gva':
-        return 'gva';
-      case 'dl':
-        return 'limburger';
-      default:
-        return;
-    }
-  }
+  const offerFormulaTenant = getTenant(currentBackofficeOfferFormulaPaperCode);
+  const offerTenant = getTenant(currentBackofficeOfferPaperCode);
 
-  function countryCodeMapper() {
-    if (currentBackofficeOfferFormulaBrand === 'dl' || currentBackofficeOfferBrand === 'dl') {
-      return 'nl';
-    } else {
-      return 'be';
-    }
-  }
+  const offerFormulaCountryCode = getCountryCode(currentBackofficeOfferFormulaPaperCode);
+  const offerCountryCode = getCountryCode(currentBackofficeOfferPaperCode);
 
-  let countryCode = countryCodeMapper();
-
-  let offerFormulaPaper = paperMapper(currentBackofficeOfferFormulaBrand);
-
-  productButtonBackoffice.onclick = function () {
-    var win = window.open(
-      `https://${currentBackofficeEnvironment}aboshop.${offerFormulaPaper}.${countryCode}/checkout?formula_id=${currentBackofficeOfferFormulaId}`,
+  productButtonBackoffice.addEventListener('click', function () {
+    const win = window.open(
+      `https://${currentBackofficeEnvironment}aboshop.${offerFormulaTenant}.${offerFormulaCountryCode}/checkout?formula_id=${currentBackofficeOfferFormulaId}`,
       '_blank'
     );
     win.focus();
-  };
+  });
 
-  let offerPaper = paperMapper(currentBackofficeOfferBrand);
-
-  offerButtonBackoffice.onclick = function () {
-    var win = window.open(
-      `https://${currentBackofficeEnvironment}aboshop.${offerPaper}.${countryCode}/${currentBackofficeOfferSlug}`,
+  offerButtonBackoffice.addEventListener('click', function () {
+    const win = window.open(
+      `https://${currentBackofficeEnvironment}aboshop.${offerTenant}.${offerCountryCode}/${currentBackofficeOfferSlug}`,
       '_blank'
     );
     win.focus();
-  };
+  });
 });
+
+function getTenant(paperCode) {
+  switch (paperCode) {
+    case 'nb':
+      return 'nieuwsblad';
+    case 'ds':
+      return 'standaard';
+    case 'hbvl':
+      return 'hbvl';
+    case 'gva':
+      return 'gva';
+    case 'dl':
+      return 'limburger';
+    default:
+      new Error('paperCode is undefined');
+  }
+}
+
+function getCountryCode(paperCode) {
+  switch (paperCode) {
+    case 'dl':
+      return 'nl';
+    default:
+      return 'be';
+  }
+}
