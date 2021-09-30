@@ -10,16 +10,17 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
   });
 });
 
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (message) {
   shopUrl = message.currentShopUrl;
+  shopOfferId = message.currentShopOfferId;
   shopOfferFormulaId = message.currentShopOfferFomulaId;
   shopOrderId = message.currentShopOrderId;
   shopEnvironment = message.currentShopEnvironment;
   backofficeUrl = message.currentBackofficeUrl;
   backofficeOfferFormulaId = message.currentBackofficeOfferFormulaId;
-  backofficeOfferFormulaBrand = message.currentBackofficeOfferFormulaBrand;
+  backofficeOfferFormulaPaperCode = message.currentBackofficeOfferFormulaPaperCode;
   backofficeOfferId = message.currentBackofficeOfferId;
   backofficeOfferSlug = message.currentBackofficeOfferSlug;
-  backofficeOfferBrand = message.currentBackofficeOfferBrand;
+  backofficeOfferPaperCode = message.currentBackofficeOfferPaperCode;
   backofficeEnvironment = message.currentBackofficeEnvironment;
 });

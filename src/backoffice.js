@@ -1,54 +1,56 @@
+'use strict';
+
 chrome.extension.onMessage.addListener(function (request) {
   if (request.type === 'getUrlChange' || request.type === 'getTabChange') {
     console.log('executing backoffice script...');
 
-    let backofficeUrl = window.location.href.toLowerCase();
+    const backofficeUrl = window.location.href.toLowerCase();
 
-    function getAccessToken() {
+    const getAccessToken = () => {
       return localStorage.getItem(
         Object.keys(localStorage).filter((s) => s.includes('.accessToken'))
       );
-    }
+    };
 
-    function getBackofficeOfferFormulaId() {
+    const getBackofficeOfferFormulaId = () => {
       if (
         backofficeUrl.includes('aboshopadmin.limburger.nl/subscriptionformula/edit') ||
         backofficeUrl.includes('aboshopadmin.mediahuis.be/subscriptionformula/edit')
       ) {
-        splittedBackofficeUrl = backofficeUrl.split('/');
+        const splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
         return;
       }
-    }
+    };
 
-    function getBackofficeOfferId() {
+    const getBackofficeOfferId = () => {
       if (
         backofficeUrl.includes('aboshopadmin.limburger.nl/offers/edit') ||
         backofficeUrl.includes('aboshopadmin.mediahuis.be/offers/edit')
       ) {
-        splittedBackofficeUrl = backofficeUrl.split('/');
+        const splittedBackofficeUrl = backofficeUrl.split('/');
         return splittedBackofficeUrl[splittedBackofficeUrl.length - 1];
       } else {
         return;
       }
-    }
+    };
 
-    let backofficeEnvironment;
-
-    if (backofficeUrl.includes('://testaboshopadmin')) {
-      backofficeEnvironment = 'test';
-    } else if (backofficeUrl.includes('://previewaboshopadmin')) {
-      backofficeEnvironment = 'preview';
-    } else if (backofficeUrl.includes('://aboshopadmin')) {
-      backofficeEnvironment = '';
-    }
+    const backofficeEnvironment = () => {
+      if (backofficeUrl.includes('://testaboshopadmin')) {
+        return 'test';
+      } else if (backofficeUrl.includes('://previewaboshopadmin')) {
+        return 'preview';
+      } else if (backofficeUrl.includes('://aboshopadmin')) {
+        return '';
+      }
+    };
 
     async function getBackofficeOfferFormulaData() {
       await fetch(
         backofficeUrl.includes('limburger')
-          ? `https://${backofficeEnvironment}offerservice.limburger.nl/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`
-          : `https://${backofficeEnvironment}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`,
+          ? `https://${backofficeEnvironment()}offerservice.limburger.nl/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`
+          : `https://${backofficeEnvironment()}offerservice.mediahuis.be/api/subscriptionformulas/${getBackofficeOfferFormulaId()}`,
         {
           headers: {
             Authorization: `Bearer ${getAccessToken()}`,
@@ -57,11 +59,11 @@ chrome.extension.onMessage.addListener(function (request) {
       )
         .then((response) => response.json())
         .then((data) => {
-          let msg = {
+          const msg = {
             currentBackofficeUrl: backofficeUrl,
             currentBackofficeOfferFormulaId: getBackofficeOfferFormulaId(),
-            currentBackofficeOfferFormulaBrand: data.brand,
-            currentBackofficeEnvironment: backofficeEnvironment,
+            currentBackofficeOfferFormulaPaperCode: data.brand,
+            currentBackofficeEnvironment: backofficeEnvironment(),
           };
           chrome.runtime.sendMessage(msg);
         })
@@ -73,17 +75,17 @@ chrome.extension.onMessage.addListener(function (request) {
     async function getBackofficeOfferData() {
       await fetch(
         backofficeUrl.includes('limburger')
-          ? `https://${backofficeEnvironment}offerservice.limburger.nl/api/offers/${getBackofficeOfferId()}`
-          : `https://${backofficeEnvironment}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`
+          ? `https://${backofficeEnvironment()}offerservice.limburger.nl/api/offers/${getBackofficeOfferId()}`
+          : `https://${backofficeEnvironment()}offerservice.mediahuis.be/api/offers/${getBackofficeOfferId()}`
       )
         .then((response) => response.json())
         .then((data) => {
-          let msg = {
+          const msg = {
             currentBackofficeUrl: backofficeUrl,
             currentBackofficeOfferId: getBackofficeOfferId(),
             currentBackofficeOfferSlug: data.slug,
-            currentBackofficeOfferBrand: data.brand,
-            currentBackofficeEnvironment: backofficeEnvironment,
+            currentBackofficeOfferPaperCode: data.brand,
+            currentBackofficeEnvironment: backofficeEnvironment(),
           };
           chrome.runtime.sendMessage(msg);
         })
@@ -103,7 +105,7 @@ chrome.extension.onMessage.addListener(function (request) {
     ) {
       getBackofficeOfferData();
     } else {
-      let msg = {};
+      const msg = {};
       chrome.runtime.sendMessage(msg);
     }
   }
